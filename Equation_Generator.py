@@ -3,24 +3,18 @@ import random
 low_number = 1
 high_number = 20
 
-answer = low_number, high_number
-x = low_number, high_number
+num1 = random.randint(low_number, high_number)
+num2 = random.randint(low_number, high_number)
 
+print(num1, "+", num2, "=")
 
-secret = random.randint(low_number, high_number)
+user_input = input("Answer: ")
 
-# Start Round
-while True:
-    print(low_number/high_number, "+", "x")
+# Convert the user input to an integer
+user_result = int(user_input)
 
-    guess = int(input("Guess a number: "))
-
-    if guess == secret:
-        print("Congratulations! You guessed the secret number.")
-        break
-    elif guess < secret:
-        print("Too low! Try again.")
-        low_number = guess + 1
-    else:
-        print("Too high! Try again.")
-        high_number = guess - 1
+# Compare the user's input with the correct answer
+if user_result == num1 + num2:
+    print("Correct!")
+else:
+    print("Incorrect. The answer is", num1 + num2)
