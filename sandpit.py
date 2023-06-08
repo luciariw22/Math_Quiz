@@ -113,7 +113,7 @@ while end_game == "no":
 
     rounds_played += 1
 
-    # End game if rounds end
+    # End game if rounds end or user enters 'xxx'
     if rounds_played == rounds:
         end_game = "yes"
 
@@ -124,11 +124,6 @@ while end_game == "no":
 game_summary = []
 rounds_won = sum(question["Result"] == "correct" for question in game_summary)
 rounds_lost = rounds_played - rounds_won
-
-game_summary.append({
-        "Question": f"{number} + x = {correct_answer}",
-        "User Answer": user_result,
-        "Result": question_result})
 
 # Display Game Statistics
 percent_win = rounds_won / rounds_played * 100
