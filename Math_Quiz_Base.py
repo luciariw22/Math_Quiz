@@ -1,7 +1,7 @@
 import random
 
-# Functions go here
 
+# Functions go here
 
 def yes_no(question):
     valid = False
@@ -19,11 +19,13 @@ def yes_no(question):
 
 
 def instructions():
+    print()
     print("**** Welcome to the Math Quiz ****")
     print()
-    print("For each game, you will be asked to enter a 'low' and 'high' number. The computer will randomly generate a 'secret number' between your chosen numbers. It will use these numbers for all rounds in a given game.")
-    print("You need to guess the correct answer for each math equation.")
-    print("Let's test your math skills!")
+    print("Select how many rounds you want to play and answer the algebra (addition) equations")
+    print("The more equations you guess correctly, the more points you get")
+    print()
+    print("***** Good Luck! *****")
     print()
 
 
@@ -47,7 +49,8 @@ def check_rounds():
 
         return response
 
-# Main routine goes here...
+
+# main routine goes here
 
 
 show_instructions = yes_no("Have you played the game before? ")
@@ -55,7 +58,7 @@ show_instructions = yes_no("Have you played the game before? ")
 if show_instructions == "no":
     instructions()
 else:
-    print("Program continues.")
+    print("Program continues")
 
 rounds_played = 0
 
@@ -63,6 +66,8 @@ rounds_played = 0
 rounds = check_rounds()
 
 end_game = "no"
+game_summary = []
+
 while end_game == "no":
 
     # Start of Game Play Loop
@@ -80,32 +85,62 @@ while end_game == "no":
     low_number = 1
     high_number = 20
 
-    num1 = random.randint(low_number, high_number)
-    num2 = random.randint(low_number, high_number)
+    number = random.randint(low_number, high_number)
 
-    print(num1, "+", num2, "=")
+    # gives x's value high/low number
+    x = random.choice(['low', 'high'])
+
+    if x == 'low':
+        x_value = low_number
+    else:
+        x_value = high_number
+
+    print(f"x = {x_value}")
+    print(f"{number} + x =")
 
     user_input = input("Answer: ")
 
     # Convert the user input to an integer
     user_result = int(user_input)
 
+    # Calculate correct answer
+    correct_answer = number + x_value
+
     # Compare the user's input with the correct answer
-    if user_result == num1 + num2:
+    if user_result == correct_answer:
         print("Correct!")
+        question_result = "correct"
     else:
-        print("Incorrect. The answer is", num1 + num2)
+        print(f"Incorrect. The answer is {correct_answer}")
+        question_result = "incorrect"
+
+    game_summary.append({"Question": f"{number} + x =", "Result": question_result})
 
     rounds_played += 1
 
-    # End game if the requested number of rounds has been played
+    # End game if rounds end or user enters 'xxx'
     if rounds_played == rounds:
         end_game = "yes"
 
-    # End game if the player wants to exit
     if input("Type 'xxx' to end the game, or press Enter to continue: ") == "xxx":
         end_game = "yes"
 
-# Put end game content here
-print("Thank you for playing.")
+# Calculate Game Statistics
+rounds_won = sum(question["Result"] == "correct" for question in game_summary)
+rounds_lost = rounds_played - rounds_won
+
+# Display Game Statistics
+percent_win = rounds_won / rounds_played * 100
+percent_lost = rounds_lost / rounds_played * 100
+
+print("\n***** Game Statistics *****")
+print(f"Total Rounds Played: {rounds_played}")
+print(f"Total Rounds Won: {rounds_won}")
+print(f"Total Rounds Lost: {rounds_lost}")
+print()
+print("Thank you for playing!")
+
+
+
+
 
