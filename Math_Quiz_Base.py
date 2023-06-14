@@ -22,8 +22,8 @@ def instructions():
     print()
     print("**** Welcome to the Math Quiz ****")
     print()
-    print("Select how many rounds you want to play and answer the algebra (addition) equations")
-    print("The more equations you guess correctly, the more points you get")
+    print("Select how many rounds you want to play and answer the algebra (addition) equations.")
+    print("The more equations you guess correctly, the more points you get.")
     print()
     print("***** Good Luck! *****")
     print()
@@ -49,8 +49,10 @@ def check_rounds():
 
         return response
 
+    # main routine goes here
 
-# main routine goes here
+
+# Main routine goes here
 
 
 show_instructions = yes_no("Have you played the game before? ")
@@ -98,10 +100,15 @@ while end_game == "no":
     print(f"x = {x_value}")
     print(f"{number} + x =")
 
-    user_input = input("Answer: ")
+    while True:
+        user_input = input("Answer: ")
 
-    # Convert the user input to an integer
-    user_result = int(user_input)
+        # Check if the user input is an integer
+        try:
+            user_result = int(user_input)
+            break
+        except ValueError:
+            print("Please enter an integer as the answer.")
 
     # Calculate correct answer
     correct_answer = number + x_value
@@ -119,11 +126,13 @@ while end_game == "no":
     rounds_played += 1
 
     # End game if rounds end or user enters 'xxx'
+
     if rounds_played == rounds:
         end_game = "yes"
 
     if input("Type 'xxx' to end the game, or press Enter to continue: ") == "xxx":
         end_game = "yes"
+
 
 # Calculate Game Statistics
 rounds_won = sum(question["Result"] == "correct" for question in game_summary)
@@ -139,8 +148,5 @@ print(f"Total Rounds Won: {rounds_won}")
 print(f"Total Rounds Lost: {rounds_lost}")
 print()
 print("Thank you for playing!")
-
-
-
 
 
